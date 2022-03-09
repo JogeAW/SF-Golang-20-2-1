@@ -17,7 +17,7 @@ func dataSource() (<-chan int, <-chan bool) {
 
 	go func() {
 		defer close(exit)
-
+		println("Input number to pipeline")
 		scanner := bufio.NewScanner(os.Stdin)
 		var value string
 		for {
