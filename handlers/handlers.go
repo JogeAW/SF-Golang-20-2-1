@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"log"
 	"pipeline/ringbuffer"
 	"time"
 )
@@ -14,6 +15,7 @@ func FilterNegative(exit <-chan bool, v <-chan int) <-chan int {
 		for {
 			select {
 			case value := <-v:
+				log.Println("Passing Negative stage")
 				if value > 0 {
 					select {
 					case positiveChannel <- value:
@@ -36,6 +38,7 @@ func Multiple(exit <-chan bool, v <-chan int) <-chan int {
 		for {
 			select {
 			case value := <-v:
+				log.Println("Passing Negative stage")
 				if value != 0 && value%3 == 0 {
 					select {
 					case multipleChan <- value:
@@ -60,6 +63,7 @@ func Buffering(exit <-chan bool, v <-chan int) <-chan int {
 		for {
 			select {
 			case value := <-v:
+				log.Println("Passing Negative stage")
 				buffer.Append(value)
 			case <-exit:
 				return
